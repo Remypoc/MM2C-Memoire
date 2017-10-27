@@ -1,0 +1,58 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{biblatex}
+\usepackage{graphicx}
+
+\title{Mémoire}
+\author{Rémy Pocquerusse}
+\date{October 2017}
+
+\addbibresource{references.bib}
+
+\begin{document}
+
+\maketitle
+
+\clearpage
+
+\section{Introduction}
+
+Le web sémantique ou web 3.0 est une extension du web, standardisée par le W3C. Ces standards recommandent l'utilisation de format de données et de protocoles normés (RDF - Resource Description Framework, etc.).
+
+Le web sémantique prend une part de plus en plus importante dans les stratégies de développement et d'innovation, son potentiel est exploré par de plus en plus d'acteurs hétéroclites. \cite{sw-evolution}
+
+//TODO Présentation plus approfondie du web sémantique et linked data
+
+\subsection{A quoi cela sert-il ?}
+
+Actuellement la navigation et la recherche d'information sur le web nécessitent une action humaine. Une machine n'est pas encore capable de rechercher et d'analyser efficacement des données sur le web. La collecte de données automatique est possible mais la machine ne peut déterminer le type d'entité, les thèmes, les relations, contextes etc... des données qu'elle manipule.
+Le web sémantique permet de répondre à différentes problématiques. Il permet tout d'abord d'assurer l'interopérabilité des systèmes d'information en fournissant un modèle de données permettant de décrire toutes les ressources du web (RDF et ontologies). Ces données sont standardisées et reliées entre elles ce qui permet de lier des sources de données hétérogènes. On parle de Linked Data. \cite{tim-ted}
+
+Ceci permet notamment de répondre au manque de signification des données pour les machines en créant un espace d'échange de données structurées entre hommes et machines. Ces données structurées permettent aux machines d'exploiter de façon plus efficiente et précise les informations contenues sur le web. 
+
+Le but du web sémantique est d'utiliser tout le potentiel du web. Cela offre énormément de cas d'application dans toutes les technologies du web : algorithmes de recommandation des sites e-commerce, moteurs de recherche, traitement automatique des langues et analyse sémantique de texte, réseaux sociaux, etc. \cite{sw-8-applications} \cite{sw-to}
+
+Ce sont les moteurs de recherche qui m'intéressent particulièrement et leurs évolutions possibles grâce aux linked data. Comment le web sémantique influence et redéfini les algorithmes de recherche sur le web ? Différents cas d'application sont possibles pour l'analyse sémantique des requêtes, des pages web... Je propose ici de définir une des possibilitées du linked data : aider l'utilisateur à affiner ses recherches de façon non impliqué. C'est-à-dire proposer des améliorations de requête à l'utilisateur sans les influencer (auto-complétion, saisie automatique, etc.). Par exemple, Google (entre autres), influence les recherches des utilisateurs en proposant la saisie automatique des recherches effectuées sur son moteur (et lors de recherches spécifiques cette saisie automatique se révèle souvent inutile).
+
+Il existe différents moteurs de recherche qui se base sur la sémantique des requêtes pour affiner et optimiser les résultats retournés à l'utilisateur. Ces moteurs de recherche utilisent le web sémantique comme support pour l'indexation des résultats définis sous la forme de site web, documents, etc. et la proposition de mots pour affiner ces requêtes de façon intuitive (par exemple swisscows).
+
+Une tel approche peut, par exemple, permettre d'affiner les recherches de mots polysémiques (même mots mais plusieurs significations) en les recoupant en entités distinctes (un opéra peut être un théâtre, un gâteau, une station de métro...). \cite{open-yago} Par exemple je recherche la base de connaissance Yago. C'est à la fois un nom de footballeur, une plateforme téléphonique, une base de connaissance, etc. Sur google on trouve rapidement la base en tapant simplement yago (fin de la page 1) mais sur d'autres moteurs de recherche (yahoo, qwant...) souvent on ne trouve pas l'information recherchée (en première page). Le but n'est plus de proposer à l'utilisateur d'affiner sa recherche en se basant sur les recherches d'autres utilisateurs mais d'appliquer un contexte sur cette recherche. Exemple : \url{http://graftie.com/search/yago}. Ici on sait que Yago peut être un logiciel, une île, une série télévisée... Ce qui permet de réaliser des proposition pertinente pour l'utilisateur.
+
+\subsection{Qu’est ce qui existe ? Quelles sont les limites de cet existant ?}
+
+Comme le précise Tim Berners Lee dans sa conférence sur les Linkded Data \cite{tim-ted}, la limite la plus importante pour le développement du web sémantique est l'individu. Le web sémantique se construit sur une base collective, chacun apporte sa pierre à l'édifice. Mais l'idée d'un web des données prend de plus en plus d'importance au fur et à mesure des avancées et des gains potentiels identifiés.
+
+//TODO Etudier les limites du web sémantique et du linked data pour les données moins générique. Refonte du HTML pour analyser et construite un graphe sémantique des pages web (rdfa).
+
+Swisscows (ou hulbee) donne déjà un aperçu de recommandation basée sur l'analyse sémantique des termes d'une recherche. Les termes proposés ne sont en revanche pas très cohérents ave la recherche.
+
+//TODO Voir s'il est possible de définir précisément les méthodes utilisées pour la recommendation de mots clés.
+
+\clearpage
+
+\printbibliography[
+heading=bibintoc,
+title={Bibliographie}
+]
+\end{document}
