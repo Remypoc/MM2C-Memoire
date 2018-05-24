@@ -1,0 +1,24 @@
+Un knowledge graph (KG ou graphe de connaissance ou réseau de connaissance) est défini comme une base de connaissance organisé sous forme de graphe \cite{ehrlinger2016towards} \cite{JoStichburyKG}. Comme pour une base de connaissance, l'information est organisée à l'aide d'ontologies. De part l'intégration d'une sémantique de l'information, il est possible de dériver du savoir de l'information disponible. 
+
+Modéliser notre problème de fact checking sous la forme d'un graphe va nous permettre d'utiliser des propriétés et comportement définis dans la théorie des graphes. Les graphes vont nous permettre de comprendre un fait en analysant leur environnement. Cela va nous permettre de fournir ce qui manque à d'autres systèmes de fact checking comme ClaimBuster : un contexte sémantique. Il va complémentariser certaines approches utilisant le machine learning ou encore des approches qui se basent sur le TAL en leur apportant une image de l'existant, un environnement plus vaste. Un KG va permettre d'avoir un aperçu factuel et précis de l'existant. Il va nous apporter un système qui va se baser sur les relations entre les entités définies dans le fait et les confronter avec celles dans l'existant pour établir un verdict. 
+Nous commencerons par voir une application basique, la plus simple possible, d'une approche de fact checking à base de KG. Puis nous verrons des méthodes qui étendent et améliorent cette approche.
+
+A lire : \url{https://nordicapis.com/automated-fact-checking-the-holy-grail-of-political-communication/}
+
+\subsubsection{Wikipédia knowledge graph}
+
+\input{wkg}
+
+\subsubsection{Finding Streams in Knowledge Graphs to Support Fact Checking} 
+
+\input{knowledge_stream}
+
+\subsubsection{Google knowledge graph}
+
+\todo{A voir : \url{https://fr.wikipedia.org/wiki/Knowledge_Graph} : world fact book, etc.}
+
+\todo{\url{https://developers.google.com/knowledge-graph/} : permet de rechercher des infos sur des entités}
+
+Le Google Knowledge Graph (GKG) est ce qui permet au moteur de recherche de Google d'ajouter de la sémantique aux résultats d'une requête.
+
+Il est possible de résumer la méthode précédente à une simple requête et à l'analyse syntaxique de la réponse. Reprenons l'assertion suivante : \enquote{Joseph Boyden wrote Three Day Road}. En annexe sont disponibles les fragments important retournés par l'api (\ref{appendix:gkg_jb}).

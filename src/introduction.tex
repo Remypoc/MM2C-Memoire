@@ -1,0 +1,136 @@
+Durant mon stage de Master 1, j'ai effectué une mission qui tournait autour d'une problématique simple : donner la possibilité à un utilisateur de décrire une chose et comprendre l'objet de cette chose côté machine. Plus précisément il me fallait catégoriser un texte pour pouvoir ensuite le classifier (parle t-on de science, d'écologie ?, etc.). Quelques pistes m'ont été données pour commencer mes recherches, notamment le traitement du langage naturelle avec les possibilitées liées au web sémantique. C'est en explorant les ambitions du web sémantique que je me suis aperçu des enjeux d'un web ouvert aux données. En formulant des requêtes en langue naturelle ou structurée (type SQL) il est possible de récupérer des données formatées et liées, exploitables par une machine. Avec l'enjouement pour l'intelligence artificielle qui a explosé grâce au big data \cite{sh}, la donnée est devenu précieuse. Beaucoup de problématiques de calcul et d'apprentissage tournent autour de la donnée, dans le machine learning par exemple il faut des données fiables, structurées et en grande quantité. La création de dataset prend du temps et nécessite souvent une intervention externe du fait de la quantité de données à traiter manuellement. Par exemple ClaimBuster (outil que nous présenterons plus tard), a nécessité 3 mois de travail et 226 participants pour créer un dataset viable \cite{hassan2015quest}.
+\\*
+Pourtant ces données sont disponibles sur le web. N'y aurait-il pas un moyen de réduire ce temps de 3 mois au temps d'une simple requête ?
+
+C'est à une de ces problématiques que le web sémantique (dont nous détaillerons le fonctionnement plus tard) tente aujourd'hui de répondre. Le web sémantique avec l'intégration de la sémantique dans le web vise à donner du sens aux données. Le mot Socrate ne réfère plus à un simple mot mais à un nom, à une personne qui possède une date de naissance, une nationalité, etc. Chaque donnée va référer à un objet qui possède des attributs universels qui le décrivent \cite{schemaPerson}.
+\\*
+Le web sémantique a déjà eu un impact important sur le web mais méconnu, ce qui peut s'expliquer par le fait qu'il est souvent défini comme un outil fait par des scientifiques pour des scientifiques \cite{semantic_web_has_failed}.
+\\*
+Un des cas les plus important (et visible) est l'intégration de la sémantique dans le système de recherche de Google. Cela se traduit par des informations organisées à l'écran comme les infoboxes (panel situé à droite qui détaille notre recherche) ou encore des réponses directes aux recherches, exemple : \enquote{Quel est le vrai nom de molière ?} va nous afficher directement la réponse.
+
+Le web sémantique a ouvert toutes sortes de données autour de différents thèmes : la médecine, le e-commerce, etc. La plupart des CMS permettent à leur utilisateurs de structurer leur données et de les ouvrir au reste du monde. Par exemple, le CMS Drupal permet de produire des données liées \cite{corlosquet2009produce}. Ce n'est pas négligeable quand on sait qu'il fait tourner environ 2.1\% de tous les sites de type CMS \cite{w3techs} (il est aussi possible de le faire sur la plupart des CMS). 
+\\*
+En médecine on peut noter \href{http://bio2rdf.org/}{Bio2RDF}, projet open source qui regroupe plus de 11 milliards de triples relatifs aux sciences de la vie et à la recherche clinique. On peut aussi citer DBPedia qui est une référence dans le domaine du web sémantique et qui s'est fixé pour but, depuis 2007, de produire des données liées avec des informations extraites de wikipédia.
+
+Toutes ces données sont facilement maniables et interconnectables. Dans le cas présent nous allons voir comment ces données sont utilisées et pourrait être utilisées pour lutter contre la désinformation.
+
+\todo{A revoir}
+
+\subsection{La désinformation}
+
+\enquote{La désinformation est un ensemble de techniques de communication visant à tromper des personnes ou l'opinion publique pour protéger des intérêts (privés ou non) et/ou d'influencer l'opinion publique.} \cite{wiki:desinformation}
+
+La désinformation est donc un acte conscient et organisé pour nuire à un groupe de personnes. Elle peut se traduire par de la propagande, du prosélytisme ou de la manipulation sur tout type de sujet. Elle peut prendre tout type de configuration, mais prend souvent la forme d'allégations alarmantes ou révoltantes qui vont frapper le lecteur. Le but est de susciter une émotion forte pour que le lecteur s'empresse de partager l'information. Un mensonge plus frappant qu'une vérité se diffusera plus vite et plus loin avec un impact plus important. On estime par exemple, que sur twitter, une fake news a 70\% de chance en plus d'être partagée qu'une autre information \cite{vosoughi2017rumor}. 
+Ainsi la désinformation se traduit plus généralement par une tentative de manipulation de l'opinion publique (exemple \href{https://www.20minutes.fr/societe/2261439-20180426-video-evacuation-tolbiac-retour-naissance-fake-news}{ici}) en transmettant des informations partiellement erronée (il est plus facile de croire à un mensonge enrobé de vérité). 
+
+Il faut tout de même différencier la désinformation politique dont sont à l'origine des grandes organisations ou des états (on parle souvent de propagande) de la désinformation économique qui touche plutôt au buzz et à toute forme de reconnaissance (réseaux sociaux, etc.).
+
+\subsection{Fake news}
+
+Sur internet quand on parle de désinformation, on parle de fake news ou fausses nouvelles. On définit une fake news comme étant une information dont le but est de tromper consciemment un lecteur. Une fake news peut donc être définie comme étant une tentative de désinformation mais qui pour la plupart visent à induire en erreur et créer du buzz autour d'un fait. Elle sont particulièrement présentent sur les réseaux sociaux et dans les usines à clics. Mais on les retrouvent aussi dans la presse spécialisé ou encore dans les médias politisés dont le but est la propagation de fausses informations pour servir leurs intérêts (retouche d'image, etc.).  Mais un article faux n'est pas forcément une fake news tant qu'il n'y a pas l'intention de tromper, l'article peut avoir des fins humoristiques ou satiriques par exemple.
+
+Une information se base sur un fait réel et donc vérifiable. Afin d'identifier une information comme étant fausse il faut pouvoir le prouver factuellement. Il est donc important de connaître l'existant (un ensemble d'informations vraies) pour pouvoir identifier une information fausse. Ici le but n'est pas de lutter contre ou éradiquer les fake news (cela reste de la liberté d'expression, dans une certaine mesure). Nous chercherons simplement à les identifier.
+
+\todo{citer l'etude sur l'impact des fake news durant la campagne américaine (voir dans présentation ebs)}
+
+\paragraph{Pourquoi favoriser leur détection ?} A cause de l'impact sur le monde réel que cela peut avoir. Susciter une vive émotion dans l'opinion publique est une des finalités de la fake news. Cela peut avoir des conséquences graves sur les évènements qui se déroulent (réponse par la violence, la haine). C'est un constat encore plus vrai en temps de guerre ou durant des périodes sensibles.
+
+\subsection{Intelligence artificielle}
+
+Le but de l'intelligence artificielle (IA) est de créer des machines intelligentes capables de comprendre leur environnement et de performer des actions leur permettant d'atteindre un but précis. Cela se traduit par l'imitation des facultés humaine comme la résolution de problèmes ou l'apprentissage.
+
+\paragraph{Le Machine learning} fait référence a la capacité d'un système à apprendre de données formatées pour ensuite être capable de prédire quelque chose \cite{MichaelCopeland}.
+
+\todo{A finir}
+
+\subsection{Fake news et intelligence artificielle}
+
+Détailler l'utilité de l'intelligence artificielle pour la détection de fakenews.
+
+Machine learning ?
+
+Vérification de source.
+
+Vérification d'un fait : vérification d'une image ?
+
+
+\subsection{Fact-checking}
+
+\todo{Définition du fact checking et dérives (ex: fact checking system)}
+
+\todo{Cela revient à demander à une machine de faire du journalisme. Parler des enjeux.}
+
+\todo{Comment le fact checking intègre l'intelligence artificielle ?}
+
+\todo{A voir, https://fullfact.org/automated}
+
+\todo{A voir : http://idir.uta.edu/factwatcher/nba.php}
+
+Le fact-checking ou vérification de faits représente l'acte de vérifier la véracité d'une assertion. Il s'agit de traiter l'information afin de démêler le vrai du faux, du partiellement vrai du partiellement faux.
+
+Seulement les sources d'informations sont innombrables et le flux de données journalier est tel qu'il est impossible de vérifier chaque information manuellement. Que ce soit sur des blogs, les réseaux sociaux, les sites d'information, etc. filtrer l'information et la vérifier représente un temps de travail important.
+
+\todo{Parler du fait que le fact-checking est une nouvelle forme de journalisme}
+
+\paragraph{Initiatives contre les fake news}
+
+Que fait-on dans le monde réel pour lutter contre les fakenews ?
+Survey of initiatives against fake news : \cite{haciyakupoglu2018countering}
+
+\todo{parler de facebook/google suite à la campagne américaine}
+
+\paragraph{Fact-checking : les limites}
+
+Le fact-checking est un travail qui est chronophage, en effet il faut tout d'abord trouver et identifier les faits vérifiable et dignes d'intérêt. Il y a ensuite un travail de recherche pour comprendre le fait et le vérifier en faisant attention de ne pas tomber soi-même dans le piège de la désinformation. Cela signifie confronter et vérifier ses sources. 
+Tous ces critères font qu'entre le moment ou une déclaration est faite, et celui ou elle est vérifiée s'écoule un certain laps de temps, qui peut éventuellement rendre le fact-checking inutile si la déclaration a déjà eu l'impact voulu.
+
+\paragraph{Quels objectifs ?}
+
+L'objectif derrière le fact checking reste actuellement très politique, il s'agit de traquer les mensonges de personnalités influentes.
+
+Mais à terme le fact checking doit permettre de toujours manipuler une information avérée et sûre quelque soit sa source ou sa forme.
+
+Il n'existe actuellement aucun système universel, 100\% automatisé et 100\% fiable qui permettent de réaliser des opérations de fact-checking sur tout type de support. La finalité d'un système de fact-checking serait tout d'abord d'être capable de caractériser, classifier et comprendre l'information pour ensuite vérifier sa légitimité. 
+
+\todo{Définir les étapes de vérification d'un fait}
+
+\paragraph{Système entièrement autonome ou du moins le plus possible}
+
+Quelle serait les tâches d'un système entièrement autonome ? Quelle est la faisabilité de chacune de ces tâches ? Et enfin quelle marge d'erreur est on prêt à accepter avant de définir notre système comme entièrement autonome ?
+
+Un tel système doit pouvoir extraire une assertion d'une source et la vérifier sans intervention humaine et dans un temps raisonnable. Pour cela il doit pouvoir se "nourir" de différentes sources d'informations qu'il va confronter.
+
+\paragraph{Challenges}
+
+Comme nous l'avons précisé pour qu'un fait soit analysé il faut tout d'abord qu'il soit compris. Il faut donc faire comprendre au système le langage humain, c'est ce qu'on appel le traitement automatique du langage naturel (TALN). C'est un domaine vaste qui fait appel à de nombreux sous domaine dans le traitement du langage comme l'analyse syntaxique ou l'analyse sémantique.
+
+\todo{Trouver un papier pour référencer ça : TALN loin d'être parfait}
+
+Mais un système aussi performant soit-il ne fonctionnera pas sans données fiables. Il faut pouvoir trouver et collecter ces données pour alimenter le système. Les sources de données structurées et utilisables sont innombrables, que ce soit avec le développement du web sémantique, du linked-data, des bases de connaissances, des apis de type REST (Wikimedia) et de l'open data on possède déjà des sources de données conséquentes et fiables. On a ensuite des sources de données plus générique, moins ordonnées mais tout aussi exploitable. Je parle ici des sites d'information et plus généralement de toutes les informations disponibles sur internet : réseaux sociaux, etc. Ce sont des sources de données plus ou moins fiable mais la quantité d'information produite par ces sources est considérable. Ces sources peuvent être interrogées via des outils de type web scraping et data mining.
+Toutes ces sources de données peuvent être confrontées pour permettre de chercher et étoffer un fait pour pouvoir le comprendre et le vérifier.
+Mais les sources de données ne se limitent pas à ce que l'on trouve sur internet.
+
+On identifie donc 3 sources de données différentes, les données : 
+
+\begin{itemize}
+    \item Déjà traitées par des sites spécialisés ou communautaires : beaucoup de sites d'information ont développés leurs propres systèmes de fact-checking (tous manuels). 
+    \item Structurées ou semi-structurées : issues de l'open data, ou d'api telles que wikimédia
+    \item Non-structurées : issues de toutes sources potentiellement utilisables
+\end{itemize}
+
+Les données non structurées peuvent se trouver directement dans la vie réelle à travers différents médias : les chaînes de télévision, les émissions de radio (mais aussi les journaux, magazines), etc. Tout signal vidéo ou audio est potentiellement une source intéressante pour le système. Il faut pouvoir interroger et structurer ces sources : savoir qui parle, dans quel contexte.
+
+Une fois ces informations structurées nous devons savoir lesquelles définissent des faits réels et vérifiable. Filtrer les informations en fonction de la vérifiabilité d'une assertion. C'est-à-dire éliminer toute phrase qui définit une opinion, de l'humour, de l'ironie, figures de style, etc. et bien sûr les phrases lambda. De plus comment détecter qu'un fait se construit sur plusieurs phrases ? Comment construire une argumentaire appuyé par des preuves concrète qui permette de remettre en cause le fait.
+
+\subsection{Objectifs}
+
+\todo{But du mémoire : voir l'ensemble des techniques viable et proposer un système cohérent reprenant les atouts de chaque méthodes/concept + architecture technique}
+
+J'ai choisi ce sujet car il fait appel à des technologies et des domaines de recherches très nombreux que j'ai souvent survolé : web sémantique et linked-data, analyse sémantique, bases de connaissances, traitement automatique du langage, machine learning, knowledge graph, web scraping, web crawling, data mining, etc. 
+\\*
+En voulant analyser l'information de façon automatique on cherche ici à cartographier et comprendre les ressources disponibles sur le web. Analyser toutes les données disponibles pour en comprendre le sens, et construire des modèles cohérents permettant de structurer l'information pour élaborer des modules basés sur des algorithmes d'apprentissage efficaces. C'est-à-dire récupérer des informations, les structurer et construire des algorithmes issus de ces données par apprentissage supervisé. La finalité de ces algorithmes est multiple : détection de fake news, détection d'image, etc. Ce que je veux montrer ici c'est l'enjeu derrière un web structuré : je souhaite obtenir un dataset d'images me permettant d'entraîner mon algorithme de détection de visage ? Je n'ai qu'une simple requête à faire. C'est tout à fait possible sur des bases de données de type \href{https://fr.wikipedia.org/wiki/Triplestore}{Triplestore} \cite{wiki:Triplestore} qui vont organiser la donnée comme un graphe connecté ou chaque noeud est relié par une relation. C'est un objectif très vaste voir impossible (\todo{citation sur les détracteurs du web sémantique}). Mais pour lutter contre la désinformation et arriver à un système de fact checking efficace et autonome c'est un prérequis important.
+
+\todo{Faire évoluer le but du mémoire en fonction des résultats}
+Le but de ce mémoire est d'étudier différentes approches utilisées dans le fack checking automatique pour pouvoir proposer un système viable et cohérent. Nous tenterons de construire un système reprenant les atouts de chaque méthodes et concepts afin de proposer une architecture technique qui tente de répondre à plusieurs problématiques rencontrées par les systèmes existants.
+
+\todo{Plutôt que d'essayer de vérifier la véracité d'un fait pourquoi ne pas collecter des infos autour de ce fait, construire un argumentaire et laisser l'utilisateur être seul juge ?}

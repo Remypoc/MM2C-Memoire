@@ -1,0 +1,180 @@
+\todo{Attention les KG c'est pas vraiment de l'ia}
+
+Nous avons vu que le fact checking de faits simples était possible via le parcours d'un graphe de connaissance. Seulement plusieurs problèmes peuvent se poser comme la montée en charge d'une telle approche ou sa fiabilité. Dans ce papier, une nouvelle approche est utilisée pour organiser et parcourir un graphe de connaissance. Le code source est disponible \href{https://github.com/shiralkarprashant/knowledgestream}{ici}.
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{imgs/max_flow.png}
+  \end{center}
+  \caption{Graphe/Réseau de flot non orienté}
+  \label{max_flow}
+\end{wrapfigure}
+
+Cette approche consiste à organiser un graphe comme un réseau de flot \cite{shiralkar2017finding}. Dans un réseau de flot, chaque arête possède une capacité maximale dans laquelle peut passer un flux. Avec cette approche on va chercher à évaluer sémantiquement chaque chemin allant d'une entité A vers une entité B. Plusieurs chemins vont apporter plusieurs contextes qui vont permettre d'évaluer sémantiquement le fait. En outre, la recherche de chemins optimaux est limité par la capacité maximale de chaque arêtes. 
+\\*
+En travaillant sur un réseau de flot et en contraignant ainsi chaque flux, on réduit le nombre de chemins possibles entre deux entités. De plus on limite le nombre d'arêtes communes entre chaque chemins. On a ainsi des chemins plus variés en terme de contexte sémantique. Dans la figure \ref{max_flow}, pour aller de s vers t il est possible de passer par l'arête p \textrightarrow r, sans contraintes, l'algorithme passera toujours par cette arête. L'espace restreint va l'obliger a passer par o \textrightarrow q et ainsi fournir de nouvelles informations.
+\\*
+Ces chemins vont construire l'argumentaire sur lequel le système va s'appuyer pour rendre un verdict sur le statut d'un fait.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth, draft=false]{imgs/bookAuthorKG.PNG}
+\caption{Relations entre un livre et son auteur dans un graphe de connaissance \cite{shiralkar2017finding}}
+\label{stream}
+\end{figure}
+
+La figure \ref{stream} représente l'argumentaire autour du triplet t = (David and Goliath (book), author, Malcolm Gladwell). Plus une arête est directe et plus elle est épaisse. Plus elle est épaisse et plus le flux d'information est important. Cela permet de privilégier les chemins courts dans lesquels les informations contenues sont sémantiquement importantes. 
+\\*
+Pour un triple donné (s, p, o) il faut voir l'information comme un quantité abstraite qui doit voyager du sujet s vers l'objet o. Chaque arête possède une capacité permettant de transporter plus ou moins d'informations, mais aussi un coût d'utilisation. Ce coût d'utilisation représente le coût d'envoi d'une unité d'information sur le réseau. Ce coût d'utilisation permet encore de s'assurer que les chemins seront le plus court et spécifique possible.
+\\*
+Le but est donc de trouver les chemins pour lesquelles nous pouvons transporter le plus d'informations entre s et o pour un coût minimal.
+
+\subsection{Fact checking dans un réseau de flot}
+
+Nous allons voir à présent deux méthodes de fact checking qui appliquent ce concept de réseau de flot dans un graphe de connaissance : Knowledge Stream et Relational Knowledge Linker. Ces méthodes vont construire l'argumentaire d'un fait autour des relations entre les triples qui composent un chemin.
+
+\subsubsection{Knowledge Stream}
+\label{sec:ks}
+
+\paragraph{Analogie entre les relations}
+
+Afin de construire un contexte qui va être le plus proche possible de celui du fait énoncé, on va déterminer les relations homologues entre celle du fait et celles existante dans notre KG. Par exemple pour déterminer l'auteur d'un livre on ne va pas aller regarder les relations concernant l'architecture mais bien celles concernant la littérature.
+
+Pour évaluer l'analogie entre les relations on va construire un graphe G dans lequel les sommets sont des entités et les arêtes des relations. Dans la figure \ref{graph_g},  entre les entités A et C on a une relation de type c (qui peut être par exemple une relation de type \enquote{est marié à}).
+\\*
+La figure \ref{linear_g_graph} représente le graphe adjoint de G. Par définition, étant donné un graphe G non orienté, le graphe adjoint de G, noté L(G), est un graphe qui représente la relation d'adjacence entre les arêtes de G. Ainsi chaque sommet de L(G) représente une arête de G. Deux sommets de L(G) sont adjacents si et seulement si les arêtes correspondantes partagent une extrémité commune dans G \cite{wiki:lg}.
+\\* 
+Dans la figure \ref{linear_g_graph} on peut voir que certains noeuds sont représentés plusieurs fois comme a1 et a2 alors qu'ils définissent la même relation. Pour palier à ce problème il faut contracter le graphe comme dans la figure \ref{w_line_graph}. On fusionne chaque sommet commun et on pondère les arêtes en fonctions des relations précédentes des sommets.
+\\*
+Cette démarche va nous permettre de définir les similarités entre les relations. Les arêtes pondérées dans la figure \ref{w_line_graph} représentent la fréquence à laquelle chaque relation co-incident avec ses voisins dans G. Plus cette pondération est importante et plus la similarité entre les relations est forte.
+
+Au final, à partir de la matrice d'adjacence du graphe contracté, on va pouvoir établir des corrélations entre les différentes relations (ici les sommets) à l'aide du TF-IDF (term frequency-inverse document frequency). Cette méthode va évaluer l'importance d'une relation au sein du graphe. Déterminer l'importance d'une relation va nous permettre d'établir un contexte plus précis pour un fait donné. 
+
+\iffalse
+Code du graphe G original
+
+graph G {
+    A -- B  [label="a1"];
+    A -- C  [label="c"];
+    A -- D  [label="a2"];
+    B -- C  [label="b"];
+    C -- E  [label="e1"];
+    C -- F  [label="f"];
+    D -- E  [label="d"];
+    E -- F  [label="e2"];
+}
+
+G linear graph
+
+graph G {
+    a1 -- a2
+    a1 -- c
+    a1 -- b
+    a2 -- d
+    a2 -- c
+    b -- c
+    b -- e1
+    b -- f
+    c -- e1
+    c -- f
+    d -- e1
+    d -- e2
+    e1 -- e2
+    e1 -- f
+    e2 -- f
+}
+
+Weighted G linear graph
+
+graph G {
+    a -- b [label="1"];
+    a -- c [label="2"];
+    a -- d [label="1"];
+    b -- c [label="1"];
+    b -- e [label="1"];
+    b -- f [label="1"];
+    c -- e [label="1"];
+    c -- f [label="1"];
+    d -- e [label="2"];
+    e -- f [label="2"];
+}
+\fi
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[b]{0.3\textwidth}
+    \includegraphics[width=\textwidth]{imgs/graph_g.PNG}
+    \caption{Graphe G original, non orienté}
+    \label{graph_g}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.3\textwidth}
+    \includegraphics[width=\textwidth]{imgs/linear_g_graph.PNG}
+    \caption{Graphe adjoint G'}
+    \label{linear_g_graph}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.3\textwidth}
+    \includegraphics[width=\textwidth]{imgs/w_line_graph.PNG}
+    \caption{Graphe adjoint contracté G*}
+    \label{w_line_graph}
+  \end{minipage}
+\end{figure}
+
+\paragraph{Problème de minimisation dans un réseau de flot}
+
+Pour rappel nous cherchons à trouver l'ensemble des chemins pour lesquels le flux maximum est poussé de s vers o pour un coût minimal. Un réseau de flot vient avec différentes contraintes. Il faut tout d'abord pouvoir déterminer la pondération des relations entre les entités, savoir combien d'unités d'information je peux passer d'une entité à une autre. Pour cela on va se baser sur le calcul précédent qui détermine la similarité entre les relations. La quantité disponible pour chaque flux sera calculé selon la similarité avec le prédicat du triplet cible. Plus deux relations seront similaire et plus le flux alloué sera important. En outre, plus un fait sera général (plus il aura de relations), moins son flux sera important.
+
+Une autre contrainte énoncé plus haut est le coût d'utilisation du réseau, chaque chemin à un coût. On cherche à minimiser ce coût et dans cette approche minimiser le coût signifie traverser le moins d'entités génériques possible. Les entités trop génériques ne permettent pas de récupérer des informations précises dans un contexte donné. Le coût d'utilisation d'une arête sera donc déterminé par les relations de ses sommets avec les sommets adjacents.
+
+La dernière contrainte est que dans un réseau de flot, le flux entrant dans un sommet doit être égal à son flux sortant. Il faut pouvoir déterminer le flot maximum qui peut être envoyé entre s et o.
+\\*
+Cette contrainte est représentée ainsi :
+\begin{equation}
+   \sum\limits_{P_{s,p,o}  \in  \mathcal{P}_{s,p,o}}  \beta(P_{s,p,o})
+\end{equation}
+
+Où $ \beta(P s,p,o) $ représente le plus petit flot possible pour un chemin. Il s'agit de l'arête qui possède la capacité minimale sur un chemin. Les unités d'informations que je peux envoyer sur un chemin seront limitées par $ \beta(P s,p,o) $. Dans cette approche, cette arête représente le triple le moins pertinent pour notre chemin.
+\\*
+Si on reprend la figure \ref{max_flow}, on ne pourra jamais envoyer plus de 5 unités d'informations de s vers t. En effet les chemins qui mènent vers t sont limités. Si entre o et q mon flot maximum était de 2, alors je ne pourrais jamais envoyer plus de 4 unités d'informations de s vers t. Donc l'information maximale que je peux envoyer se calcul à partir de la somme des capacités minimales de chaque chemins allant de s vers t. Soit la somme des $ \beta(P s,p,o) $.
+
+Au final, sachant que je peux envoyer x unités d'information sur mon réseau, comment maximiser les informations viable que je peux récupérer ? Pour cela il faut pouvoir déterminer des chemins spécifiques pour éviter les chemins trop génériques. Ex : si mon chemin passe par l'entité \enquote{France} on va lui attribuer une faible valeur sémantique. On solutionne ce problème par la contrainte suivante :
+
+\begin{equation}
+   \mathcal{S}(P_{s,p,o}) = \frac{1}{1 + \sum\limits_{i=2}^{n-1} \log k(v_{i})}
+\end{equation}
+
+Où $ k(v_{i}) $ représente le degré du noeud $ v_{i} $. On va établir un score sémantique déterminé par la somme des degrés des noeuds (nombre de relations) en relations avec $ P_{s,p,o} $. Plus $ P_{s,p,o} $ aura de relations et plus il aura de relations génériques, moins son score sémantique sera élevé.
+
+Ainsi nous allons pouvoir établir un score de fiabilité pour un triple :
+\begin{equation}
+   \beta(P_{s,p,o}) \times \mathcal{S}(P_{s,p,o})
+\end{equation}
+
+Pour un triple donné, son score de fiabilité sera évalué par le produit entre le flot maximum que peut porter le chemin et le score sémantique du triple. Pour rappel, plus un triple est direct et plus son flot maximum est élevé. Un triple avec un score élevé sera court, le plus direct possible, et aura peu de relations avec des entités génériques. Finalement, pour évaluer le score de fiabilité d'un chemin, il suffit de sommer tous les scores de fiabilité des triples qui le compose.
+
+\subsubsection{Relational Knowledge Linker}
+
+Cette approche cherche à étendre des méthodes de fack checking sur des graphes de connaissance déjà existantes.
+Pour l'approche précédente on se concentre sur la sémantique du sujet et de l'objet, on favorise le sens que l'on peut tirer du triple. L'argumentaire se construit autour de la spécificité de chaque triples. 
+\\*
+Dans cette approche on va se concentrer sur la similarité entre les relations qui lient l'objet et le sujet pour construire notre argumentaire. On se base sur la sémantique du prédicat. Ainsi on va chercher à maximiser la sémantique autour des relations entre les triples. Cette approche étend ce que nous avons vu avec \cite{ciampaglia2015computational} en y ajoutant la similarité entre les relations que nous avons vu dans la section \ref{sec:ks}.
+
+\subsection{Critique}
+
+L'évaluation de cette approche s'est faite sur des datasets déjà formatés, des triples issus notamment du Google Relation Extraction Corpora
+(disponibles \href{https://github.com/google-research-datasets/relation-extraction-corpus}{ici}). Aucune application dans la vie réelle n'a été conduite. Pour des cas d'application réels il faut pouvoir vérifier un fait en langage naturel. Pour cela il faut pouvoir identifier dans un fait, et avec certitude, les deux entités et la relation qui les unie. On en revient au même problème de TAL. Comment je vais fournir à mon système des données qu'il peut traiter ? On peut envisager plusieurs méthodes pour palier à ce problème, les faits devant être simple, on peut utiliser le TAL ou le machine learning \cite{googleai}. 
+
+Pour rappel, cette approche permet de faire du fact checking sur des faits de la forme d'un triplet. Soit des faits simples. Et bien que les faits soient simples, le temps pour vérifier un seul fait se calcul selon une complexité pseudo-polynomiale. Soit $ O(Y|E|\log |V|)$ où V représente les sommets du graphe, E les arêtes et Y le flot maximum d'informations que l'on peut faire passer sur le réseau. Sur des graphes géants tel que DBPedia on obtient un temps moyen (sur laptop) de 356 secondes pour la vérification d'un fait. On peut s'interroger sur l'utilité d'une telle approche pour vérifier des faits en live ou même pour servir d'outil pour aider les journalistes. Avec cette approche la complexité va grandissante en fonction de la taille du graphe. Travailler sur des graphes complets, qui bénéficient de grandes quantités d'informations peut demander beaucoup de temps.
+
+Ce temps de calcul est dû au caractère unique de chaque fait. Pour un fait a analyser il faut reproduire toutes les étapes vue précédemment. Il est impossible de réutiliser des données calculées en amont, sur d'autres faits, pour réduire le temps de calcul. En effet, pour chaque fait le graphe se modélise de façon unique. Pour chaque fait les entités et relations en cause ne seront pas les mêmes. Il est donc nécessaire de reconstruire le graphe.
+
+Une autre limitation est la rareté de la donnée. Bien que les bases de connaissances existantes soient immenses, elles ne sont pas comparables au flux de données quotidien qui transite sur internet. De plus les bases de connaissances comme DBPedia ne contiennent aucune news ou informations récentes. Pour DBPedia on ne pourra vérifier un fait que si l'information est présente dans wikipédia. D'autres part, si ce manque de données venait à être résolu on se retrouverait avec des graphes tellement grands qu'il serait impossible de les analyser dans des temps raisonnable avec les méthodes présentées.
+
+\subsection{Conclusion}
+
+Nous avons vu que les KG permettent de réaliser des opérations de fact checking sur des faits simples dans des temps plus ou moins raisonnable. Du fait du manque de données et de la complexité des faits à analyser il est difficile de penser à un système de fact checking entièrement autonome à base de KG. En revanche cette approche nous apporte des informations essentielles pour les autres méthodes et système de fact checking : un contexte sémantique. Ce contexte sémantique se matérialise par la construction de l'argumentaire d'un fait qui évalue son environnement et confronte ses liens avec l'existant. 
+
+
+\todo{A lire : \url{http://blog.dbpedia.org/2018/05/15/the-dbpedia-databus-transforming-linked-data-into-a-networked-data-economy/}}
+\todo{A voir : https://arxiv.org/pdf/1503.00759v3.pdf}
