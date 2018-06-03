@@ -40,8 +40,6 @@ On va attribuer à chaque chemin une valeur de confiance ou score de confiance q
 
 Le chemin qui aura le score le plus élevé sera le chemin le plus court et qui traversera les entités les moins générique. C'est ce que l'on va appeler la proximité sémantique. Cette proximité sémantique représente le sens qui relie deux entités. Pour un fait donné, est-ce que c'est deux entités mise bout à bout ont du sens ? 
 
-Pour le moment nous avons vu comment choisir un chemin entre deux entités, qui va nous permettre ensuite de déterminer si un fait est vrai ou faux. 
-\\*
 Pour illustrer ceci, prenons un exemple, soit des faits qui lient des villes avec des pays. Pour chaque pays et chaque villes on va tester l'assertion : \enquote{La capitale du pays x est y}.
 
 \begin{figure}[h]
@@ -51,22 +49,11 @@ Pour illustrer ceci, prenons un exemple, soit des faits qui lient des villes ave
 \label{fig1}
 \end{figure}
 
-\todo{\url{http://www.kurzweilai.net/a-computational-algorithm-for-fact-checking}}
+Plus un point est clair et plus le fait a de chance d'être vrai. Le chemin entre un pays et sa capitale possède une proximité sémantique plus forte que le chemin entre un pays et n'importe quelle autre ville. Bien que cette méthode soit très basique, elle apporte des résultats satisfaisant mais inégaux. Les tests se sont faits sur des datasets variés avec des énoncés concernant l'histoire, la géographie et le divertissement. Le taux de réussite selon les datasets varie entre 61\% et 95\%. 
 
-Plus un point est clair et plus le fait a de chance d'être vrai. Le chemin entre un pays et sa capitale possède une proximité sémantique plus forte que le chemin entre un pays et n'importe quelle autre ville. Bien que cette méthode soit très basique, elle apporte des résultats satisfaisant. Le taux de réussite selon les datasets utilisés varie entre 61\% et 95\%. Cet exemple prouve que le fact checking peut se faire au travers de graphes de connaissances. 
+\paragraph{Critique} Cette méthode permet de faire du fact checking sur des faits simples. Elle se fait entre deux entités clairement définies. Le champs des possibles pour les faits à vérifier est donc limité. Mais même sur des faits simple, le taux de réussite varie drastiquement.
+Nous verrons plus tard, avec une méthode plus avancée, certains problèmes inhérents à l'utilisation de KG pour le fact checking.
 
-\paragraph{Critique} Cette méthode permet de faire du fact checking sur des faits simples. Elle se fait entre deux entités clairement définies. Le champs des possibles pour les faits à vérifier est donc limité.
+\paragraph{Conclusion}
 
-Problème de scalabilité, important d'avoir le verdict instantanément.
-
-Nous verrons plus tard, avec des méthodes plus avancées, certains problèmes inhérents à l'utilisation de KG pour le fact checking.
-
-Ciampaglia et al. [8] propose
-an approach that relies on a single short, specific path to
-differentiate a true fact from a false one. Although intuitive,
-their algorithm fails to account for the semantics of the target
-predicate
-
-\todo{Ouvrir sur la seconde approche knowledge stream et montrer qu'il améliore cette approche}
-
-\todo{A lire : https://searchengineland.com/google-researchers-introduce-system-rank-web-pages-facts-not-links-215835}
+Cet exemple prouve que le fact checking peut se faire au travers de graphes de connaissances et que la mesure de la véracité d'une assertion peut reposer sur les connexions indirectes entre les concepts. Cette approche mène à de nouveaux modes de fact checking basé sur les graphes de connaissances. De plus, au vue de sa simplicité, toutes les portes sont ouvertes pour améliorer et étendre cette approche.

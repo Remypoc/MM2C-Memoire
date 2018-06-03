@@ -5,14 +5,12 @@ Revenons en au web sémantique afin de clarifier quelques termes et approfondir 
 Les aspirations du W3C sont de créer un web exploitable par des machines en le transformant en une base de connaissance géante.
 La navigation sur le web est possible via des hyperliens, cependant elle doit aussi pouvoir se faire au niveau de données structurées pour que les machines puissent exploiter de façon plus efficiente et précise les données contenues sur le web.
 
-\todo{Parler de la couche Proof ? \url{http://www.kbs.uni-hannover.de/Lehre/semweb07/10_proof_trust.pdf} et \url{https://sites.ualberta.ca/~reformat/ece720w2012/papers/IEEEXplore-8.pdf}}
-
 Le web sémantique ou web 3.0 est une extension du web, standardisée par le W3C. Ces standards recommandent l'utilisation de format de données et de protocoles normés, plus généralement il s'agit du RDF (Resource Description Framework).
 
 \subsubsection{RDF}
 
-Le RDF (Ressource Description Framework) est un modèle de description des données permettant l'échange entre différentes applications. Il permet la structuration, l'indexation et la standardisation des données disponibles sur le web. Un schéma simple est utilisé pour structurer les échanges et les relations entre les ressources (documents, personnes, concepts abstraits...). Sachant qu'une ressource est représentée par une IRI (International Resource Identifier), par définition unique, il est possible de lier différentes ressources entre elles en utilisant un triplet : <Subject, Property, Object> ou Subject et Object sont définis par des IRI. La propriété d'une relation spécifie la nature du lien entre les 2 ressources : isChildOf, diedIn... Pour spécifier ces relations, le RDF utilise le langage XML (ou RDF/XML) \cite{rdf}.
-\newline{}
+Le RDF (Ressource Description Framework) est un modèle de description des données permettant l'échange entre différentes applications. Il permet la structuration, l'indexation et la standardisation des données disponibles sur le web. Un schéma simple est utilisé pour structurer les échanges et les relations entre les ressources (documents, personnes, concepts abstraits...). Sachant qu'une ressource est représentée par une IRI (International Resource Identifier), par définition unique, il est possible de lier différentes ressources entre elles en utilisant un triplet : <Subject, Property, Object> ou Subject et Object sont définis par des IRI. La propriété d'une relation spécifie la nature du lien entre les 2 ressources : isChildOf, diedIn... Pour spécifier ces relations, le RDF utilise le langage XML (ou RDF/XML) \cite{rdf}. C'est ce qu'on appel des données liées au linked-data.
+
 Ainsi le web sémantique ressemble à un graphe géant regroupant plusieurs milliards de liens (triplets) permettant une navigation et une interrogation des données plus efficaces. En respectant le RDF, une entreprise, une université ou n'importe quelle entité peut ouvrir ses données au web afin qu'elles soient exploitables par n'importe quelle machine.
 
 Le RDF permet l'utilisation de différents "vocabulaires" ou ontologie pour traiter les données. Il pourrait être comparé à une grammaire et une ontologie à son vocabulaire. Par exemple FOAF (Friend Of A Friend) est une ontologie permettant la structuration de personnes. \cite{foaf}
@@ -50,11 +48,8 @@ Le langage d'interrogation de ces données est le SPARQL.
 
 Yago est disponible en open source \href{https://github.com/yago-naga/yago3}{ici}.
 
+\iffalse
 \subsubsection{SPARQL}
-
-\todo{SPARQL et Wikidata : a supprimer une fois intégré}
-
-\todo{Exemple complet de fact checking}
 
 SPARQL (Protocol And RDF Query Language) est un langage de requête orienté données permettant d'intéragir avec des données RDF à travers le web. SPARQL permet de questionner le web sémantique, plus précisément les triplets, qui forme le graphe géant du web sémantique.
 
@@ -132,3 +127,8 @@ Plus d'infos :
 \url{https://www.mediawiki.org/wiki/API:Categories}
 
 \url{https://m.mediawiki.org/wiki/API:Query#Generators}
+\fi
+
+\subsubsection{Conclusion}
+
+Le web sémantique est une source de données interopérable qui traite des données complexes. La donnée représente un objet, cet objet a des relations, des attributs et des propriétés. Mis bout à bout ces objets permettent d'avoir une représentation concrète de la réalité dans un ou plusieurs domaines. C'est cet ancrage dans la réalité qui donne au web sémantique le contexte qui manque aux données brutes. Les données liées sont primordiales pour faire évoluer le fact checking vers des approches plus performantes et fiables.

@@ -18,7 +18,7 @@
 \usepackage{float}
 
 % Cite all references %
-\nocite{*}
+% \nocite{*} %
 
 \newcommand\todo[1]{\textcolor{red}{TODO : #1}}
 
@@ -37,7 +37,7 @@
 \par\hfil\null\par
 
 \begin{center}
-{\huge L'utilisation de l'intelligence artificielle pour la lutte contre la désinformation}
+{\huge Le fact checking automatique pour la lutte contre la désinformation}
 \end{center}
 
 \clearpage
@@ -50,28 +50,39 @@
 
 \clearpage
 
+\todo{Mettre le pdf à la racine du projet}
+
 \section{Introduction générale}
 
 \input{introduction}
 
 \section{Outils et techniques}
 
-\subsection{Web sémantique}
-
-\input{semantic_web}
-
 \subsection{Claimbuster}
 
 \input{claimbuster}
 
+\subsection{Web sémantique}
+
+\input{semantic_web}
+
 \subsection{Knowledge graph}
+\label{section_knowledge_graph}
 
 \input{knowledge_graph.tex}
+
+\subsection{Knowledge graph appliqué au machine learning}
+
+\input{kg_et_ml.tex}
+
+
 
 \subsection{Délégation aux apis}
 
 Faire du fact checking via différentes apis. (voir fib)
 https://github.com/anantdgoel/HackPrincetonF16 : exemple avec pas mal d'api
+
+\url{https://github.com/knowitall/openie}
 
 \subsection{Falsification d'image}
 
@@ -97,22 +108,15 @@ Construire un score de confiance.
 https://wit.ai/ : NLP (pas forcément utile mais intéressant)
 https://github.com/anantdgoel/HackPrincetonF16 : exemple avec pas mal d'api
 
-\subsubsection{Prédire la tromperie}
+\subsubsection{A faire/voir}
 
-\cite{conroy2015automatic} voir les citations de ce papier
+\todo{ml et kg : \url{https://arxiv.org/pdf/1503.00759.pdf}}
 
-\subsubsection{A faire}
-
-\todo{Lire : http://nlp.fast.ai/classification/2018/05/15/introducting-ulmfit.html}
-\todo{Lire : \url{https://ai.googleblog.com/2013/04/50000-lessons-on-how-to-read-relation.html} et \url{https://github.com/google-research-datasets/relation-extraction-corpus/blob/master/20131104-date_of_birth.json}}
+\todo{Section sur deFActo ? \cite{gerber2015}}
 \todo{credeye : \cite{popat2018credeye}}
 
-- Parler de mon expérience dans l'analyse sémantique de texte
-
-A rechercher : 
-
-- Fact checking api
-- Computational fact checking 
+\todo{A voir : \url{https://arxiv.org/pdf/1502.03519v1.pdf}}
+\todo{\url{https://www.cs.ubc.ca/~murphyk/Papers/kv-kdd14.pdf}}
 
 Prendre le cas de FiB et expliquer pourquoi il est mauvais ?
 

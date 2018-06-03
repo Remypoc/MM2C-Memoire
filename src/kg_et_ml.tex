@@ -1,0 +1,19 @@
+Nous avons vu que les KGs apportent à la donnée un contexte sémantique nécessaire à une compréhension plus approfondie du fait, permettant la construction d'argumentaires plus élaborés. Cet argumentaire se base sur les chemin qui lient les sujets du fait. Seulement les approches étudiées ne permettent pas d'aboutir à un système de fact checking efficace et rapide, qui permet une montée en charge importante des données. De plus cette approche est limitée aux faits de la forme d'un triple.
+
+Comment peut-on récupérer les avantages d'une approche comme ClaimBuster ou Credeye, c'est-à-dire l'identification de fait vérifiables, la recherche d'un argumentaire sur le web et une approche de TALN pour la compréhension des données. Et coupler ces informations pour une recherche plus poussées sur les bases de connaissances et sur le web ? Les KGs, couplés avec des algorithmes de TALN ou machine learning sont indéniablement primordiaux.
+
+Plusieurs problèmes sont posés, le TALN n'est pas parfait et les sources du web ne sont pas fiables. L'idéal serait une base de connaissances qui permettent de récupérer les informations sur le web et puissent assurer la validité de l'information (voir couches Trust et Proof du web sémantique). C'est ce que Google tente de faire avec la base Knowledge Vault \cite{dong2014knowledge}. Ensuite il faut pouvoir utiliser cette base et obtenir des résultats dans un temps raisonnable. C'est pourquoi nous verrons l'utilité du machine learning appliqué aux KGs.
+
+\subsubsection{Knowledge Vault}
+
+Knowledge vault (KV) est une base de connaissance développée par Google. Elle s'inscrit dans la suite du Google Knowledge Graph et tente de l'étendre vers des sources d'information bien plus conséquentes. En effet KV a pour but de créer une base de connaissance à l'échelle du web \cite{dong2014knowledge}. Le problème des bases de connaissances est qu'elles reposent sur une action humaine pour être maintenues et enrichies. Leur évolution est lente et l'intégration de contenus récents fait défaut. De plus ces bases regroupent des faits génériques. Cette approche est trop chronophage pour produire du contenu spécifique fiable et en quantité. Pour répondre à ce problème, il est nécessaire d'automatiser les processus nécessaires à la construction d'une base de connaissances. Seulement cette approche revient à requêter les sources du web et appliquer du TALN. Ces 2 méthodes vont hériter des problèmes liés à l'incertitude de la donnée. Il est nécessaire de rendre la donnée fiable.
+
+Comme nous l'avons précisé, les bases de connaissances peuvent déduire de l'information en se basant sur des ontologies. Si l'on récupère un fait qui nous dit que Barack Obama est né au Kenya, nous allons utiliser des faits antérieurs et connu pour vérifier cette affirmation. Et sachant que Barack Obama est président des États Unis, cette affirmation a beaucoup de chance d'être fausse. Pour combattre l'incertitude des sources de données disponibles sur le web il est nécessaire de dériver de la connaissance à partir des bases existantes. KV se construit autour des bases existantes (notamment Freebase et le Google Knowledge Graph) pour assurer la fiabilité des nouvelles données qu'il amasse. Il se base sur les 1,6 milliards de triplets dont il est composé; sachant que parmis ces triplets, 271 millions ont un indice de confiance de 0,9 ou plus.
+
+Le potentiel de KV peut s'avérer être une source de données primordiales pour les systèmes de fact checking futures. KV est une base de connaissances capable de s'auto-alimenter et s'auto-valider avec des sources de données hétérogènes et récentes. 
+
+\subsubsection{Machine learning et knowledge graph}
+
+A voir pour cette partie : \cite{nickel2016review} \cite{gerber2015}  \cite{wilcke2017knowledge}
+
+On peut se demander quel serait les tenants et aboutissants d'un algorithmes type machine learning entraînés avec les données issues de KV.

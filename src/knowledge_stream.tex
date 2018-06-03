@@ -1,5 +1,3 @@
-\todo{Attention les KG c'est pas vraiment de l'ia}
-
 Nous avons vu que le fact checking de faits simples était possible via le parcours d'un graphe de connaissance. Seulement plusieurs problèmes peuvent se poser comme la montée en charge d'une telle approche ou sa fiabilité. Dans ce papier, une nouvelle approche est utilisée pour organiser et parcourir un graphe de connaissance. Le code source est disponible \href{https://github.com/shiralkarprashant/knowledgestream}{ici}.
 
 \begin{wrapfigure}{r}{0.5\textwidth}
@@ -29,7 +27,7 @@ Pour un triple donné (s, p, o) il faut voir l'information comme un quantité ab
 \\*
 Le but est donc de trouver les chemins pour lesquelles nous pouvons transporter le plus d'informations entre s et o pour un coût minimal.
 
-\subsection{Fact checking dans un réseau de flot}
+\paragraph{Fact checking dans un réseau de flot}
 
 Nous allons voir à présent deux méthodes de fact checking qui appliquent ce concept de réseau de flot dans un graphe de connaissance : Knowledge Stream et Relational Knowledge Linker. Ces méthodes vont construire l'argumentaire d'un fait autour des relations entre les triples qui composent un chemin.
 
@@ -155,26 +153,18 @@ Pour un triple donné, son score de fiabilité sera évalué par le produit entr
 
 \subsubsection{Relational Knowledge Linker}
 
-Cette approche cherche à étendre des méthodes de fack checking sur des graphes de connaissance déjà existantes.
+Cette approche cherche à étendre des méthodes de fact checking sur des graphes de connaissance déjà existantes.
 Pour l'approche précédente on se concentre sur la sémantique du sujet et de l'objet, on favorise le sens que l'on peut tirer du triple. L'argumentaire se construit autour de la spécificité de chaque triples. 
 \\*
-Dans cette approche on va se concentrer sur la similarité entre les relations qui lient l'objet et le sujet pour construire notre argumentaire. On se base sur la sémantique du prédicat. Ainsi on va chercher à maximiser la sémantique autour des relations entre les triples. Cette approche étend ce que nous avons vu avec \cite{ciampaglia2015computational} en y ajoutant la similarité entre les relations que nous avons vu dans la section \ref{sec:ks}.
+Dans cette approche on va se concentrer sur la similarité entre les relations qui lient l'objet et le sujet pour construire notre argumentaire. On se base sur la sémantique du prédicat. Ainsi on va chercher à maximiser la sémantique autour des relations entre les triples. Cette approche étend ce que nous avons vu dans la section \ref{sec:wkg} en y ajoutant la similarité entre les relations que nous avons vu dans la section \ref{sec:ks}.
 
-\subsection{Critique}
+\subsubsection{Critique}
 
 L'évaluation de cette approche s'est faite sur des datasets déjà formatés, des triples issus notamment du Google Relation Extraction Corpora
-(disponibles \href{https://github.com/google-research-datasets/relation-extraction-corpus}{ici}). Aucune application dans la vie réelle n'a été conduite. Pour des cas d'application réels il faut pouvoir vérifier un fait en langage naturel. Pour cela il faut pouvoir identifier dans un fait, et avec certitude, les deux entités et la relation qui les unie. On en revient au même problème de TAL. Comment je vais fournir à mon système des données qu'il peut traiter ? On peut envisager plusieurs méthodes pour palier à ce problème, les faits devant être simple, on peut utiliser le TAL ou le machine learning \cite{googleai}. 
+(disponibles \href{https://github.com/google-research-datasets/relation-extraction-corpus}{ici}). Aucune application dans la vie réelle n'a été conduite. Pour des cas d'application réels il faut pouvoir vérifier un fait en langage naturel. Pour cela il faut pouvoir identifier dans un fait, et avec certitude, les deux entités et la relation qui les unie. On en revient à un problème de TAL. Comment je vais fournir à mon système des données qu'il peut traiter ? On peut envisager plusieurs méthodes pour palier à ce problème, les faits devant être simple, on peut utiliser le TAL ou le machine learning \cite{googleai}. On ne peut pas simplement analyser chaque mots et le comparer avec les données présentes dans le graphe. C'est possible pour identifier les entités, mais pour ce qui est des relations il y a toujours plusieurs façons d'exprimer un même lien.
 
-Pour rappel, cette approche permet de faire du fact checking sur des faits de la forme d'un triplet. Soit des faits simples. Et bien que les faits soient simples, le temps pour vérifier un seul fait se calcul selon une complexité pseudo-polynomiale. Soit $ O(Y|E|\log |V|)$ où V représente les sommets du graphe, E les arêtes et Y le flot maximum d'informations que l'on peut faire passer sur le réseau. Sur des graphes géants tel que DBPedia on obtient un temps moyen (sur laptop) de 356 secondes pour la vérification d'un fait. On peut s'interroger sur l'utilité d'une telle approche pour vérifier des faits en live ou même pour servir d'outil pour aider les journalistes. Avec cette approche la complexité va grandissante en fonction de la taille du graphe. Travailler sur des graphes complets, qui bénéficient de grandes quantités d'informations peut demander beaucoup de temps.
+Pour rappel, cette approche permet de faire du fact checking sur des faits de la forme d'un triplet. Soit des faits simples. Et bien que les faits soient simples, le temps pour vérifier un seul fait se calcul selon une complexité pseudo-polynomiale. Soit $ O(Y|E|\log |V|)$ où V représente les sommets du graphe, E les arêtes et Y le flot maximum d'informations que l'on peut faire passer sur le réseau. Sur des graphes géants tel que DBPedia on obtient un temps moyen (sur laptop) de 356 secondes pour la vérification d'un fait. On peut s'interroger sur l'utilité d'une telle approche pour vérifier des faits en live ou même pour servir d'outil pour aider les journalistes. Avec cette approche la complexité va grandissante en fonction de la taille du graphe. Travailler sur des graphes complets, qui bénéficient de grandes quantités d'informations peut demander beaucoup de temps. Le graphe utilisé pour conduire les expériences est issus des infobox de wikipédia et est constitué de 6 millions d'entités donnant 24 millions de triples déterminés par 663 relations différentes. En comparaison, wikidata est constitué de plus de 48 millions d'entité \cite{wikidata:statistics} \cite{wikidata:statistics2} et le Google Knowledge Graph de plus de 500 millions d'entités et 3.5 milliards de faits à leur sujet \cite{google:kg}.
 
-Ce temps de calcul est dû au caractère unique de chaque fait. Pour un fait a analyser il faut reproduire toutes les étapes vue précédemment. Il est impossible de réutiliser des données calculées en amont, sur d'autres faits, pour réduire le temps de calcul. En effet, pour chaque fait le graphe se modélise de façon unique. Pour chaque fait les entités et relations en cause ne seront pas les mêmes. Il est donc nécessaire de reconstruire le graphe.
+Pour une montée en charge il faut pouvoir réduire ce temps de calcul. Pour cela il faudrait pouvoir abroger ou du moins anticiper le caractère unique de chaque fait. En effet, pour un fait a analyser il faut reproduire toutes les étapes vue précédemment. Il est impossible de réutiliser des données calculées en amont, sur d'autres faits, pour réduire le temps de calcul. En effet, pour chaque fait le graphe se modélise de façon unique. Pour chaque fait les entités et relations en cause ne seront pas les mêmes. Il est donc nécessaire de reconstruire le graphe.
 
-Une autre limitation est la rareté de la donnée. Bien que les bases de connaissances existantes soient immenses, elles ne sont pas comparables au flux de données quotidien qui transite sur internet. De plus les bases de connaissances comme DBPedia ne contiennent aucune news ou informations récentes. Pour DBPedia on ne pourra vérifier un fait que si l'information est présente dans wikipédia. D'autres part, si ce manque de données venait à être résolu on se retrouverait avec des graphes tellement grands qu'il serait impossible de les analyser dans des temps raisonnable avec les méthodes présentées.
-
-\subsection{Conclusion}
-
-Nous avons vu que les KG permettent de réaliser des opérations de fact checking sur des faits simples dans des temps plus ou moins raisonnable. Du fait du manque de données et de la complexité des faits à analyser il est difficile de penser à un système de fact checking entièrement autonome à base de KG. En revanche cette approche nous apporte des informations essentielles pour les autres méthodes et système de fact checking : un contexte sémantique. Ce contexte sémantique se matérialise par la construction de l'argumentaire d'un fait qui évalue son environnement et confronte ses liens avec l'existant. 
-
-
-\todo{A lire : \url{http://blog.dbpedia.org/2018/05/15/the-dbpedia-databus-transforming-linked-data-into-a-networked-data-economy/}}
-\todo{A voir : https://arxiv.org/pdf/1503.00759v3.pdf}
+Une autre limitation est la rareté de la donnée. Bien que les bases de connaissances existantes soient immenses, elles ne sont pas comparables au flux de données quotidien qui transite sur internet. De plus les bases de connaissances comme Wikidata ou DBPedia ne contiennent aucune news ou informations récentes. Pour DBPedia on ne pourra vérifier un fait que si l'information est présente dans wikipédia. D'autres part, si ce manque de données venait à être résolu on se retrouverait avec des graphes tellement grands qu'il serait impossible de les analyser dans des temps raisonnable avec les méthodes présentées.

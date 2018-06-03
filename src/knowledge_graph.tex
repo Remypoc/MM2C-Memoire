@@ -3,22 +3,23 @@ Un knowledge graph (KG ou graphe de connaissance ou réseau de connaissance) est
 Modéliser notre problème de fact checking sous la forme d'un graphe va nous permettre d'utiliser des propriétés et comportement définis dans la théorie des graphes. Les graphes vont nous permettre de comprendre un fait en analysant leur environnement. Cela va nous permettre de fournir ce qui manque à d'autres systèmes de fact checking comme ClaimBuster : un contexte sémantique. Il va complémentariser certaines approches utilisant le machine learning ou encore des approches qui se basent sur le TAL en leur apportant une image de l'existant, un environnement plus vaste. Un KG va permettre d'avoir un aperçu factuel et précis de l'existant. Il va nous apporter un système qui va se baser sur les relations entre les entités définies dans le fait et les confronter avec celles dans l'existant pour établir un verdict. 
 Nous commencerons par voir une application basique, la plus simple possible, d'une approche de fact checking à base de KG. Puis nous verrons des méthodes qui étendent et améliorent cette approche.
 
-A lire : \url{https://nordicapis.com/automated-fact-checking-the-holy-grail-of-political-communication/}
-
 \subsubsection{Wikipédia knowledge graph}
 
 \input{wkg}
+\label{sec:wkg}
 
-\subsubsection{Finding Streams in Knowledge Graphs to Support Fact Checking} 
+\subsubsection{Fact checking à base de réseaux de flots} 
 
 \input{knowledge_stream}
 
-\subsubsection{Google knowledge graph}
+\subsubsection{Conclusion}
 
-\todo{A voir : \url{https://fr.wikipedia.org/wiki/Knowledge_Graph} : world fact book, etc.}
+Nous avons vu que les KG permettent de réaliser des opérations de fact checking sur des faits simples dans des temps plus ou moins raisonnables. Du fait du manque de données et de la complexité des faits à analyser il est difficile de penser à un système de fact checking entièrement autonome à base de KG. Le temps de calcul est aussi un frein important. En revanche cette approche nous apporte des informations essentielles pour les autres méthodes et système de fact checking : un contexte sémantique. Ce contexte sémantique se matérialise par la construction de l'argumentaire d'un fait qui évalue son environnement et confronte ses liens avec l'existant. Pour ClaimBuster par exemple cela permettrait d'ajouter du sens à l'information et ainsi améliorer sa recherche d'information permettant de contextualiser le fait.
 
-\todo{\url{https://developers.google.com/knowledge-graph/} : permet de rechercher des infos sur des entités}
+D'autres part il est possible d'étendre cette approche vers des modèles de statistiques prédictives pour palier à ce manque de scalabilité \cite{wilcke2017knowledge}. C'est-à-dire analyser des faits présents et passés pour faire des hypothèses sur des événements futurs. Appliqué au machine learning il serait possible d'entraîner le système au fil des requêtes pour améliorer le temps de construction du graphe associé aux similarités entre les relations et appliquer un verdict sur un fait plus rapidement. Il est aussi possible de construire un argumentaire qui s'étendrait sur plusieurs faits, c'est-à-dire traiter un fait comme étant en relation avec d'autres faits. Ainsi il serait possible de construire une cohérence dans un texte entre les faits analysés.
 
-Le Google Knowledge Graph (GKG) est ce qui permet au moteur de recherche de Google d'ajouter de la sémantique aux résultats d'une requête.
+Pour réaliser une approche par les graphes de connaissances il est possible de faire appelle à des apis, notamment celle du Google Knowledge Graph (GKG) ou Unigraph. Le GKG est ce qui permet au moteur de recherche de Google d'ajouter de la sémantique aux résultats d'une requête. Il est possible pour des faits simples et corrélés de trouver un lien déterminant pour assurer un verdict. Par exemple, il est possible de résumer la méthode précédente à une simple requête et à l'analyse syntaxique de la réponse. Si on prend l'assertion suivante : \enquote{Joseph Boyden wrote Three Day Road}. Si on recherche sur l'api les deux entités, on va tout de suite établir le lien entre elles. En annexe sont disponibles les fragments important retournés par l'api (\ref{appendix:gkg_jb}). 
 
-Il est possible de résumer la méthode précédente à une simple requête et à l'analyse syntaxique de la réponse. Reprenons l'assertion suivante : \enquote{Joseph Boyden wrote Three Day Road}. En annexe sont disponibles les fragments important retournés par l'api (\ref{appendix:gkg_jb}).
+Enfin, les KGs sont importants pour les modèles qui se reposent sur le machine learning. Ils apportent de la donnée structurée, contextualisée et compréhensible pour la machine. Aujourd'hui, les algorithmes de type machine learning sont entraînés avec de la donnée la plus pure et brute possible. Fournir à ces algorithmes des données plus sophistiquées pourrait permettre de construire des systèmes plus intelligents \cite{nickel2016review}. Cela permettrait en outre de réduire les temps de travail nécessaires pour chaque requêtes.
+
+Certains systèmes implémentent déjà une approche par les KG avec le TAL pour le traitement des données, ex \cite{gerber2015}. 
