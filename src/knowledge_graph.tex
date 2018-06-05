@@ -3,16 +3,16 @@ Un knowledge graph (KG ou graphe de connaissance ou réseau de connaissance) est
 Modéliser notre problème de fact checking sous la forme d'un graphe va nous permettre d'utiliser des propriétés et comportement définis dans la théorie des graphes. Les graphes vont nous permettre de comprendre un fait en analysant leur environnement. Cela va nous permettre de fournir ce qui manque à d'autres systèmes de fact checking comme ClaimBuster : un contexte sémantique. Il va complémentariser certaines approches utilisant le machine learning ou encore des approches qui se basent sur le TAL en leur apportant une image de l'existant, un environnement plus vaste. Un KG va permettre d'avoir un aperçu factuel et précis de l'existant. Il va nous apporter un système qui va se baser sur les relations entre les entités définies dans le fait et les confronter avec celles dans l'existant pour établir un verdict. 
 Nous commencerons par voir une application basique, la plus simple possible, d'une approche de fact checking à base de KG. Puis nous verrons des méthodes qui étendent et améliorent cette approche.
 
-\subsubsection{Wikipédia knowledge graph}
+\subsection{Wikipédia knowledge graph}
 
 \input{wkg}
 \label{sec:wkg}
 
-\subsubsection{Fact checking à base de réseaux de flots} 
+\subsection{Fact checking à base de réseaux de flots} 
 
 \input{knowledge_stream}
 
-\subsubsection{Conclusion}
+\subsection{Conclusion}
 
 Nous avons vu que les KG permettent de réaliser des opérations de fact checking sur des faits simples dans des temps plus ou moins raisonnables. Du fait du manque de données et de la complexité des faits à analyser il est difficile de penser à un système de fact checking entièrement autonome à base de KG. Le temps de calcul est aussi un frein important. En revanche cette approche nous apporte des informations essentielles pour les autres méthodes et système de fact checking : un contexte sémantique. Ce contexte sémantique se matérialise par la construction de l'argumentaire d'un fait qui évalue son environnement et confronte ses liens avec l'existant. Pour ClaimBuster par exemple cela permettrait d'ajouter du sens à l'information et ainsi améliorer sa recherche d'information permettant de contextualiser le fait.
 

@@ -7,7 +7,7 @@ La navigation sur le web est possible via des hyperliens, cependant elle doit au
 
 Le web sémantique ou web 3.0 est une extension du web, standardisée par le W3C. Ces standards recommandent l'utilisation de format de données et de protocoles normés, plus généralement il s'agit du RDF (Resource Description Framework).
 
-\subsubsection{RDF}
+\subsection{RDF}
 
 Le RDF (Ressource Description Framework) est un modèle de description des données permettant l'échange entre différentes applications. Il permet la structuration, l'indexation et la standardisation des données disponibles sur le web. Un schéma simple est utilisé pour structurer les échanges et les relations entre les ressources (documents, personnes, concepts abstraits...). Sachant qu'une ressource est représentée par une IRI (International Resource Identifier), par définition unique, il est possible de lier différentes ressources entre elles en utilisant un triplet : <Subject, Property, Object> ou Subject et Object sont définis par des IRI. La propriété d'une relation spécifie la nature du lien entre les 2 ressources : isChildOf, diedIn... Pour spécifier ces relations, le RDF utilise le langage XML (ou RDF/XML) \cite{rdf}. C'est ce qu'on appel des données liées au linked-data.
 
@@ -15,7 +15,7 @@ Ainsi le web sémantique ressemble à un graphe géant regroupant plusieurs mill
 
 Le RDF permet l'utilisation de différents "vocabulaires" ou ontologie pour traiter les données. Il pourrait être comparé à une grammaire et une ontologie à son vocabulaire. Par exemple FOAF (Friend Of A Friend) est une ontologie permettant la structuration de personnes. \cite{foaf}
 
-\subsubsection{Ontologie}
+\subsection{Ontologie}
 
 Une ontologie permet de représenter les connaissances en les organisant sous forme de classes, de relations, de règles (ou implication) etc... Le but ici est de structurer les informations collectées sur le web.
 
@@ -34,7 +34,7 @@ Par exemple, comme dans la figure \ref{fig1}, et via The Open Graph protocol (OG
 
 Ces données peuvent ensuite être collectées pour être rassemblées et raffinées dans des bases de connaissance telles que Yago.
 
-\subsubsection{Exemple : Yago}
+\subsection{Exemple : Yago}
 
 Une KB (knowledge base ou base de connaissance) est une base de données utilisée pour stocker et structurer du contenu lié à un domaine spécifique afin qu'il soit exploitable par une machine. Une KB lie ses données entre elles en y appliquant des règles, des faits ou des prédicats. A partir de ces constats, la KB peut déduire et faire évoluer la structuration de ses données. Prenons un exemple simple, j'ai une ontologie qui décrit les relations entre les personnes. En particulier cette ontologie me dit que si 2 personnes ont une même mère alors elles ont une relation fraternelle. Ainsi si j'enregistre 1 personne, ici la mère, et que je lui attribue un lien de maternité avec deux autres personnes, ma base sera capable de créer automatiquement un lien de fraternité entre ces 2 personnes.
 
@@ -49,7 +49,7 @@ Le langage d'interrogation de ces données est le SPARQL.
 Yago est disponible en open source \href{https://github.com/yago-naga/yago3}{ici}.
 
 \iffalse
-\subsubsection{SPARQL}
+\subsection{SPARQL}
 
 SPARQL (Protocol And RDF Query Language) est un langage de requête orienté données permettant d'intéragir avec des données RDF à travers le web. SPARQL permet de questionner le web sémantique, plus précisément les triplets, qui forme le graphe géant du web sémantique.
 
@@ -129,6 +129,6 @@ Plus d'infos :
 \url{https://m.mediawiki.org/wiki/API:Query#Generators}
 \fi
 
-\subsubsection{Conclusion}
+\subsection{Conclusion}
 
 Le web sémantique est une source de données interopérable qui traite des données complexes. La donnée représente un objet, cet objet a des relations, des attributs et des propriétés. Mis bout à bout ces objets permettent d'avoir une représentation concrète de la réalité dans un ou plusieurs domaines. C'est cet ancrage dans la réalité qui donne au web sémantique le contexte qui manque aux données brutes. Les données liées sont primordiales pour faire évoluer le fact checking vers des approches plus performantes et fiables.

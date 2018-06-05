@@ -22,23 +22,73 @@
 
 \newcommand\todo[1]{\textcolor{red}{TODO : #1}}
 
-\title{Mémoire}
-\author{Rémy Pocquerusse}
-\date{October 2017}
-
 \addbibresource{references.bib}
 
 \begin{document}
 
-\maketitle
+\begin{titlepage}
 
-\par\hfil\null\par
-\par\hfil\null\par
-\par\hfil\null\par
+% Source : https://www.overleaf.com/latex/examples/title-page-with-logo/hrskypjpkrpd %
 
-\begin{center}
-{\huge Le fact checking automatique pour la lutte contre la désinformation}
-\end{center}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+ 
+%----------------------------------------------------------------------------------------
+%	HEADING SECTIONS
+%----------------------------------------------------------------------------------------
+
+\textsc{\LARGE Université Paris Nanterre}\\[1.5cm] % Name of your university/college
+\textsc{\Large Mémoire}\\[0.5cm] % Major heading such as course name
+\textsc{\large M2 MIAGE}\\[0.5cm] % Minor heading such as course title
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Le fact checking automatique pour la lutte contre la désinformation}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+ 
+%----------------------------------------------------------------------------------------
+%	AUTHOR SECTION
+%----------------------------------------------------------------------------------------
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Auteur:}\\
+Rémy \textsc{Pocquerusse} % Your name
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Encadrant:} \\
+MCF. Fabrice \textsc{Legond-Aubry} % Supervisor's Name
+\end{flushright}
+\end{minipage}\\[2cm]
+
+% If you don't want a supervisor, uncomment the two lines below and remove the section above
+%\Large \emph{Author:}\\
+%John \textsc{Smith}\\[3cm] % Your name
+
+%----------------------------------------------------------------------------------------
+%	DATE SECTION
+%----------------------------------------------------------------------------------------
+
+{\large \today}\\[2cm] % Date, change the \today to a set date if you want to be precise
+
+%----------------------------------------------------------------------------------------
+%	LOGO SECTION
+%----------------------------------------------------------------------------------------
+
+\includegraphics[draft=false, scale=0.5]{imgs/miage-nanterre.png}\\[1cm] % Include a department/university logo - this will require the graphicx package
+ 
+%----------------------------------------------------------------------------------------
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
 
 \clearpage
 
@@ -50,41 +100,35 @@
 
 \clearpage
 
-\todo{Mettre le pdf à la racine du projet}
-
 \section{Introduction générale}
 
 \input{introduction}
 
-\section{Outils et techniques}
-
-\subsection{Claimbuster}
+\section{Claimbuster}
 
 \input{claimbuster}
 
-\subsection{Web sémantique}
+\section{Web sémantique}
 
 \input{semantic_web}
 
-\subsection{Knowledge graph}
+\section{Knowledge graph}
 \label{section_knowledge_graph}
 
 \input{knowledge_graph.tex}
 
-\subsection{Knowledge graph appliqué au machine learning}
+\section{Knowledge graph appliqué au machine learning}
 
 \input{kg_et_ml.tex}
 
-
-
-\subsection{Délégation aux apis}
+\section{Délégation aux apis}
 
 Faire du fact checking via différentes apis. (voir fib)
 https://github.com/anantdgoel/HackPrincetonF16 : exemple avec pas mal d'api
 
 \url{https://github.com/knowitall/openie}
 
-\subsection{Falsification d'image}
+\section{Falsification d'image}
 
 Ex : test sur donald trump qui tient la main du pape
 
@@ -97,18 +141,18 @@ Regarder la date d'existance de l'image sur google et la confronter avec la date
 \todo{https://www.letemps.ch/sciences/twitter-mensonge-se-diffuse-plus-vite-plus-loin-verite : Par exemple, «il y a plusieurs moyens de détecter si une image a été falsifiée», indique Ewa Kijak.}
 
 
-\subsection{Vérification de la source du lien}
+\section{Vérification de la source du lien}
 
 Baser la réputation d'un site sur son contenu au fur et à mesure des vérifications (rapport entre fake news/vraies news/news non vérifiées)
 
-\subsection{Développement prototype}
+\section{Développement prototype}
 
 Prototype sur l'analyse de fausses images ? 
 Construire un score de confiance.
 https://wit.ai/ : NLP (pas forcément utile mais intéressant)
 https://github.com/anantdgoel/HackPrincetonF16 : exemple avec pas mal d'api
 
-\subsubsection{A faire/voir}
+\subsection{A faire/voir}
 
 \todo{ml et kg : \url{https://arxiv.org/pdf/1503.00759.pdf}}
 
