@@ -4,8 +4,7 @@ Pour commencer notre démonstration nous allons partir d'une assertion simple : 
 \\*
 Par exemple pour l'assertion suivante : \enquote{Joseph Boyden wrote Three Day Road} on a 2 entités, l'écrivain et l'ouvrage. Pour arriver de l'un à l'autre on va avoir des chemins directs : l'objet livre va avoir une relation de type \enquote{auteur} qui va directement lier le livre et son auteur. On va donc attribuer une valeur forte à cette relation. Un autre chemin qui passera par des entités plus génériques se verra attribuer une importance plus faible. La recherche du chemin le plus court se résume à la recherche du chemin qui a le plus de sens dans ce contexte.
 
-Dans cette approche il est important de bien définir l'impact et le rôle de la longueur du chemin entre deux entités. 
-Soit G un graphe non orienté et G = (V, E) où V représente nos sommets, nos entités et E les relations entre ces entités. Pour déterminer l'existence d'un lien entre deux entités on va utiliser une opération mathématique dite \enquote{Fermeture transitive}. Le calcul de la fermeture transitive va nous permettre de créer un graphe annexe où toutes les relations sont déjà déterminées (pré-traitement qui va nous permettre de trouver plus facilement s'il existe un lien entre 2 entités) \cite{JJLGraphes}.
+Dans cette approche il est important de bien définir l'impact et le rôle de la longueur du chemin entre deux entités. Pour déterminer l'existence d'un lien entre deux entités on va utiliser une opération mathématique dite \enquote{Fermeture transitive}. Le calcul de la fermeture transitive va nous permettre de créer un graphe annexe où toutes les relations sont déjà déterminées (pré-traitement qui va nous permettre de trouver plus facilement s'il existe un lien entre 2 entités) \cite{JJLGraphes}.
 
 \begin{figure}[H]
   \centering
@@ -38,9 +37,9 @@ graph G {
 
 On va attribuer à chaque chemin une valeur de confiance ou score de confiance qui va déterminer si ce chemin peut être utilisé pour évaluer un fait. Ce score va d'abord dépendre du degré (liens avec d'autres entités) des noeuds traversés. Une entité générique aura un degré important ce qui diminuera le score de confiance, ex : un pays, une grande organisation, etc. D'un autre côté ce score sera plus élevé s'il traverse des noeuds moins génériques, ex : personne, livre, etc. En effet un lien entre deux entités sera plus pertinent si le chemin ne traverse que des entités avec peu de relations et le contexte sémantique sera plus précis. En suivant la même logique lorsque deux entités sont directement liées, on va leur accorder un score de confiance maximal : il n'y a pas d'intermédiaires.
 
-Le chemin qui aura le score le plus élevé sera le chemin le plus court et qui traversera les entités les moins générique. C'est ce que l'on va appeler la proximité sémantique. Cette proximité sémantique représente le sens qui relie deux entités. Pour un fait donné, est-ce que c'est deux entités mise bout à bout ont du sens ? 
+Le chemin qui aura le score le plus élevé sera le chemin le plus court et qui traversera les entités les moins génériques. C'est ce que l'on va appeler la proximité sémantique. Cette proximité sémantique représente le sens qui relie deux entités. Pour un fait donné, est-ce que c'est deux entités mises bout à bout ont du sens ? 
 
-Pour illustrer ceci, prenons un exemple, soit des faits qui lient des villes avec des pays. Pour chaque pays et chaque villes on va tester l'assertion : \enquote{La capitale du pays x est y}.
+Pour illustrer ceci, prenons un exemple, soit des faits qui lient des villes avec des pays. Pour chaque pays et chaque ville on va tester l'assertion : \enquote{La capitale du pays x est y}.
 
 \begin{figure}[h]
 \centering
@@ -49,11 +48,11 @@ Pour illustrer ceci, prenons un exemple, soit des faits qui lient des villes ave
 \label{fig1}
 \end{figure}
 
-Plus un point est clair et plus le fait a de chance d'être vrai. Le chemin entre un pays et sa capitale possède une proximité sémantique plus forte que le chemin entre un pays et n'importe quelle autre ville. Bien que cette méthode soit très basique, elle apporte des résultats satisfaisant mais inégaux. Les tests se sont faits sur des datasets variés avec des énoncés concernant l'histoire, la géographie et le divertissement. Le taux de réussite selon les datasets varie entre 61\% et 95\%. 
+Plus un point est clair et plus le fait a de chance d'être vrai. Le chemin entre un pays et sa capitale possède une proximité sémantique plus forte que le chemin entre un pays et n'importe quelle autre ville. Bien que cette méthode soit très basique, elle apporte des résultats satisfaisants mais inégaux. Les tests se sont faits sur des datasets variés avec des énoncés concernant l'histoire, la géographie et le divertissement. Le taux de réussite selon les datasets varie entre 61\% et 95\% (pour l'exemple ci-dessus). 
 
-\subsubsection{Critique} Cette méthode permet de faire du fact checking sur des faits simples. Elle se fait entre deux entités clairement définies. Le champs des possibles pour les faits à vérifier est donc limité. Mais même sur des faits simple, le taux de réussite varie drastiquement.
+\subsubsection{Critique} Cette méthode permet de faire du fact checking sur des faits simples. Elle se fait entre deux entités clairement définies. Le champ des possibles pour les faits à vérifier est donc limité. Mais même sur des faits simples, le taux de réussite varie drastiquement.
 Nous verrons plus tard, avec une méthode plus avancée, certains problèmes inhérents à l'utilisation de KG pour le fact checking.
 
 \subsubsection{Conclusion}
 
-Cet exemple prouve que le fact checking peut se faire au travers de graphes de connaissances et que la mesure de la véracité d'une assertion peut reposer sur les connexions indirectes entre les concepts. Cette approche mène à de nouveaux modes de fact checking basé sur les graphes de connaissances. De plus, au vue de sa simplicité, toutes les portes sont ouvertes pour améliorer et étendre cette approche.
+Cet exemple prouve que le fact checking peut se faire au travers de graphes de connaissances et que la mesure de la véracité d'une assertion peut reposer sur les connexions indirectes entre les concepts. Cette approche mène à de nouveaux modes de fact checking basé sur les graphes de connaissances. De plus, au vu de sa simplicité, toutes les portes sont ouvertes pour améliorer et étendre cette approche.
